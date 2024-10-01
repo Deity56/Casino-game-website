@@ -3,13 +3,13 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #00010f;
+    background-color: #012902;
     color: white;
     line-height: 1.6;
 }
 
 header {
-    background-color: #00010f;
+    background-color: #012902;
     color: #fff;
     padding: 15px;
     display: flex;
@@ -26,7 +26,7 @@ nav {
     flex-wrap: wrap; /* Allow wrapping on smaller screens */
     width: 100%;
     padding: 10px;
-    background-color: #00010f; /* Ensure nav has a background */
+    background-color: #012902; /* Ensure nav has a background */
 }
 
 /* Style for Nav Links with Square Containers */
