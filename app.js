@@ -12,6 +12,7 @@ const casinoGames = [
 let userBalance = 100;  // Default user balance
 let depositHistory = JSON.parse(localStorage.getItem('depositHistory')) || [];
 let withdrawalHistory = JSON.parse(localStorage.getItem('withdrawalHistory')) || [];
+let inactivityTimer;  // Declare inactivityTimer globally
 
 /********************************
  * UI: Load Data (Games, Events, Scores)
@@ -25,12 +26,29 @@ function loadCasinoGames() {
             gameCard.innerHTML = `
                 <img src="${game.img}" alt="${game.name}" class="game-img">
                 <h3>${game.name}</h3>
-                <button>Play Now</button>
+                <button class="play-now-btn">Play Now</button>
             `;
             gameGrid.appendChild(gameCard);
         });
+
+        // Add event listeners to all "Play Now" buttons
+        const playNowButtons = document.querySelectorAll('.play-now-btn');
+        playNowButtons.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                // Check if the clicked game is Blackjack
+                if (casinoGames[index].name === 'Blackjack') {
+                    // Redirect to game1.html for Blackjack
+                    window.location.href = 'game1.html';
+                } else {
+                    // Handle other games if needed
+                    alert(`Redirecting to the ${casinoGames[index].name} game.`);
+                    // You can also redirect to different game pages here
+                }
+            });
+        });
     }
 }
+
 
 const footballEvents = [
     { name: 'UEFA Champions League', date: '2024-10-10', teams: 'Real Madrid vs Bayern Munich' },
@@ -240,6 +258,10 @@ function startInactivityTimer() {
     }, 30000);  // 30 seconds inactivity timeout
 }
 
+function clearInactivityTimer() {
+    clearTimeout(inactivityTimer);
+}
+
 // Reset the timer on any activity (mouse movement, key press, etc.)
 window.addEventListener('mousemove', startInactivityTimer);
 window.addEventListener('keydown', startInactivityTimer);
@@ -373,6 +395,7 @@ const liveApiUrl = 'https://v3.football.api-sports.io/fixtures?live=all';
 const upcomingApiUrl = 'https://v3.football.api-sports.io/fixtures?next=10';
 
 // Function to fetch live football scores
+// Function to fetch live football scores
 async function fetchLiveFootballScores() {
     try {
         const response = await fetch(liveApiUrl, {
@@ -390,6 +413,23 @@ async function fetchLiveFootballScores() {
         }
     } catch (error) {
         console.error('Error fetching live football scores:', error);
+    }
+}
+
+// Function to fetch upcoming football events
+async function fetchUpcomingFootballEvents() {
+    try {
+        const response = await fetch(upcomingApiUrl, {
+            method: 'GET',
+            headers: {
+                'x-apisports-key': apiKey
+            }
+        });
+
+        const data = await response.json();
+        displayUpcomingFootballEvents(data.response);
+    } catch (error) {
+        console.error('Error fetching upcoming football events:', error);
     }
 }
 
@@ -416,27 +456,10 @@ function displayLiveFootballScores(fixtures) {
     });
 }
 
-// Function to fetch upcoming football events
-async function fetchUpcomingFootballEvents() {
-    try {
-        const response = await fetch(upcomingApiUrl, {
-            method: 'GET',
-            headers: {
-                'x-apisports-key': apiKey
-            }
-        });
-
-        const data = await response.json();
-        displayUpcomingFootballEvents(data.response);
-    } catch (error) {
-        console.error('Error fetching upcoming football events:', error);
-    }
-}
-
 // Function to display upcoming football events
 function displayUpcomingFootballEvents(events) {
     const eventList = document.getElementById('eventList');
-    eventList.innerHTML = '';
+    eventList.innerHTML = '';  // Clear the current events
 
     events.forEach(event => {
         const eventCard = document.createElement('div');
@@ -450,16 +473,17 @@ function displayUpcomingFootballEvents(events) {
     });
 }
 
+// Set intervals for periodic updates
+setInterval(fetchLiveFootballScores, 30000);  // Fetch every 30 seconds
+setInterval(fetchUpcomingFootballEvents, 30000);  // Fetch every 30 seconds
 
-setInterval(fetchLiveFootballScores, 3000);
-setInterval(fetchUpcomingFootballEvents, 3000);
-
-
+// Fetch the scores when the page loads
 window.onload = function () {
     loadCasinoGames();
     loadEsportsEvents();
     loadFootballScores();
     updateUI();
-    fetchLiveFootballScores();
-    fetchUpcomingFootballEvents()  
+    fetchLiveFootballScores();  // Fetch live football matches on load
+    fetchUpcomingFootballEvents();  // Fetch upcoming football events on load
 };
+
