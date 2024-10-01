@@ -32,20 +32,26 @@ function loadCasinoGames() {
     }
 }
 
-function loadEsportsEvents() {
+const footballEvents = [
+    { name: 'UEFA Champions League', date: '2024-10-10', teams: 'Real Madrid vs Bayern Munich' },
+    { name: 'English Premier League', date: '2024-10-12', teams: 'Manchester United vs Chelsea' },
+    { name: 'La Liga', date: '2024-10-15', teams: 'Barcelona vs Atletico Madrid' }
+];
+
+function loadFootballEvents() {
     const eventList = document.getElementById('eventList');
-    if (eventList) {
-        esportsEvents.forEach(event => {
-            const eventCard = document.createElement('div');
-            eventCard.classList.add('event-card');
-            eventCard.innerHTML = `
-                <h3>${event.name}</h3>
-                <p>${event.date}</p>
-                <p>${event.teams}</p>
-            `;
-            eventList.appendChild(eventCard);
-        });
-    }
+    eventList.innerHTML = ''; // Clear the previous content
+
+    footballEvents.forEach(event => {
+        const eventCard = document.createElement('div');
+        eventCard.classList.add('event-card');
+        eventCard.innerHTML = `
+            <h3>${event.name}</h3>
+            <p>${event.date}</p>
+            <p>${event.teams}</p>
+        `;
+        eventList.appendChild(eventCard);
+    });
 }
 
 function loadFootballScores() {
@@ -63,11 +69,6 @@ function loadFootballScores() {
         });
     }
 }
-
-const esportsEvents = [
-    { name: 'Champions League', date: '2024-10-05', teams: 'Team A vs Team B' },
-    { name: 'Premier League', date: '2024-10-06', teams: 'Team C vs Team D' }
-];
 
 const liveFootballScores = [
     { match: 'Team A vs Team B', score: '2 - 1', status: 'Ongoing' },
@@ -366,12 +367,99 @@ confirmWithdrawal.addEventListener('click', () => {
     }
 });
 
-/********************************
- * INITIALIZATION: Load content on window load
- ********************************/
+// Define your API key (replace 'YOUR_API_KEY' with the key you got from API-FOOTBALL)
+const apiKey = 'd666f6b5a6d0bff313a987b9343aeeb6';
+const liveApiUrl = 'https://v3.football.api-sports.io/fixtures?live=all';
+const upcomingApiUrl = 'https://v3.football.api-sports.io/fixtures?next=10';
+
+// Function to fetch live football scores
+async function fetchLiveFootballScores() {
+    try {
+        const response = await fetch(liveApiUrl, {
+            method: 'GET',
+            headers: {
+                'x-apisports-key': apiKey,  // Authentication header
+            },
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            displayLiveFootballScores(data.response);
+        } else {
+            console.error('Failed to fetch live football scores');
+        }
+    } catch (error) {
+        console.error('Error fetching live football scores:', error);
+    }
+}
+
+// Function to display live football scores
+function displayLiveFootballScores(fixtures) {
+    const scoreList = document.getElementById('scoreList');
+    scoreList.innerHTML = '';  // Clear the current scores
+
+    if (fixtures.length === 0) {
+        scoreList.innerHTML = '<p>No live football matches at the moment.</p>';
+        return;
+    }
+
+    fixtures.forEach(fixture => {
+        const status = fixture.status && fixture.status.long ? fixture.status.long : 'Unknown Status';
+        const scoreCard = document.createElement('div');
+        scoreCard.classList.add('score-card');
+        scoreCard.innerHTML = `
+            <h3>${fixture.teams.home.name} vs ${fixture.teams.away.name}</h3>
+            <p>Score: ${fixture.goals.home} - ${fixture.goals.away}</p>
+            <p>Status: ${status}</p>
+        `;
+        scoreList.appendChild(scoreCard);
+    });
+}
+
+// Function to fetch upcoming football events
+async function fetchUpcomingFootballEvents() {
+    try {
+        const response = await fetch(upcomingApiUrl, {
+            method: 'GET',
+            headers: {
+                'x-apisports-key': apiKey
+            }
+        });
+
+        const data = await response.json();
+        displayUpcomingFootballEvents(data.response);
+    } catch (error) {
+        console.error('Error fetching upcoming football events:', error);
+    }
+}
+
+// Function to display upcoming football events
+function displayUpcomingFootballEvents(events) {
+    const eventList = document.getElementById('eventList');
+    eventList.innerHTML = '';
+
+    events.forEach(event => {
+        const eventCard = document.createElement('div');
+        eventCard.classList.add('event-card');
+        eventCard.innerHTML = `
+            <h3>${event.league.name}</h3>
+            <p>${event.fixture.date}</p>
+            <p>${event.teams.home.name} vs ${event.teams.away.name}</p>
+        `;
+        eventList.appendChild(eventCard);
+    });
+}
+
+
+setInterval(fetchLiveFootballScores, 3000);
+setInterval(fetchUpcomingFootballEvents, 3000);
+
+
 window.onload = function () {
     loadCasinoGames();
     loadEsportsEvents();
     loadFootballScores();
-    updateUI();  // Check if user is signed in on page load
+    updateUI();
+    fetchLiveFootballScores();
+    fetchUpcomingFootballEvents()  
 };

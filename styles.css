@@ -227,45 +227,41 @@ button:hover {
 }
 
 /* Esports Section */
-.esports-section {
+/* Separate Upcoming Events from Live Football Scores */
+.football-events-section {
     padding: 40px;
     background-color: #171717;
+    margin-bottom: 30px; /* Adds space between upcoming events and the next section */
 }
 
-.event-list {
+/* Container for live football scores */
+.live-football-scores-section {
+    padding: 40px;
+    background-color: #101010; /* Differentiates the background color for visual separation */
+}
+
+/* Flexbox layout to center and align content */
+.score-list, .event-list {
     display: flex;
     flex-direction: column;
+    gap: 15px; /* Adds spacing between individual event or score cards */
 }
 
-.event-card {
-    background-color: #00010f;
+.event-card, .score-card {
+    background-color: #1a1a1a;
     padding: 20px;
     margin: 10px 0;
     border-radius: 10px;
     transition: all 0.3s ease;
+    border: 1px solid #ffcc00;
+    color: white;
 }
 
-.event-card:hover {
+.event-card:hover, .score-card:hover {
     transform: scale(1.05);
+    box-shadow: 0px 5px 15px rgba(255, 204, 0, 0.5);
 }
 
-/* Football Events Section */
-.football-events-section {
-    padding: 40px;
-    background-color: #171717;
-}
-
-.score-list {
-    display: flex;
-    flex-direction: column;
-}
-
-.score-card {
-    background-color: #00010f;
-    padding: 20px;
-    margin: 10px 0;
-    border-radius: 10px;
-}
 
 /* Footer */
 footer {
