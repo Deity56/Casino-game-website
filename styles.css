@@ -3,15 +3,15 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #012902;
+    background-color: #290101;
     color: white;
     line-height: 1.6;
 }
 
 header {
-    background-color: #012902;
+    background-color: #290101;
     color: #fff;
-    padding: 15px;
+    padding: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -26,7 +26,7 @@ nav {
     flex-wrap: wrap; /* Allow wrapping on smaller screens */
     width: 100%;
     padding: 10px;
-    background-color: #012902; /* Ensure nav has a background */
+    background-color: #290101; /* Ensure nav has a background */
 }
 
 /* Style for Nav Links with Square Containers */
