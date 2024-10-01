@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casino & Esports Arena</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <div class="wallet-container" id="walletContainer" style="display: none;">
+            <img src="assets/usdt-icon.png" alt="USDT Icon" class="usdt-icon">
+            <span id="balanceAmount">0 USDT</span>
+            <button id="walletBtn">Wallet</button>
+
+        </div>
+
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#casino">Casino Games</a></li>
+                <li><a href="#esports">Esports Events</a></li>
+                <li><a href="#football-events">Football Events</a></li>
+                <li><a href="#" id="loginBtn">Sign In</a></li>
+                <li><a href="#" id="signupBtn">Sign Up</a></li>
+            </ul>
+
+            <!-- Profile Picture & Username Section -->
+            <div class="profile-container">
+                <img id="profilePic" src="assets/avatar.png" alt="Profile Picture">
+                <span id="usernameDisplay">Guest</span>
+                <input type="file" id="profileImageInput" style="display:none">
+                <button id="uploadProfileBtn">Change Picture</button>
+                <button id="changeUsernameBtn">Change Username</button>
+                <button id="signOutBtn" style="display: none;">Sign Out</button> <!-- Sign Out Button -->
+            </div>
+        </nav>
+    </header>
+    <div id="usernameModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeUsernameModal">&times;</span>
+            <h2>Change Username</h2>
+            <input type="text" id="newUsername" placeholder="Enter new username">
+            <button id="confirmUsernameChange">Save</button>
+        </div>
+    </div>
+
+    <div id="walletModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeWalletModal">&times;</span>
+            <h2>Wallet</h2>
+            <button id="openDepositModal">Deposit</button>
+            <button id="openWithdrawalModal">Withdraw</button>
+            <button id="openHistoryModal">History</button>
+        </div>
+    </div>
+    
+    <!-- Deposit Modal -->
+    <div id="depositModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeDepositModal">&times;</span>
+            <h2>Deposit USDT</h2>
+            <label for="depositAmount">Amount:</label>
+            <input type="number" id="depositAmount" placeholder="Enter amount">
+            <p>Pay to this address: <span id="depositAddress">USDT-ADDRESS-12345</span></p>
+            <button id="confirmDeposit">Confirm Deposit</button>
+        </div>
+    </div>
+    
+    <!-- Withdrawal Modal -->
+    <div id="withdrawalModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeWithdrawalModal">&times;</span>
+            <h2>Withdraw USDT</h2>
+            <label for="withdrawAmount">Amount:</label>
+            <input type="number" id="withdrawAmount" placeholder="Enter amount">
+            <label for="receivingAddress">Receiving Address:</label>
+            <input type="text" id="receivingAddress" placeholder="Enter USDT address">
+            <button id="confirmWithdrawal">Confirm Withdrawal</button>
+        </div>
+    </div>
+
+    <div id="historyModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeHistoryModal">&times;</span>
+            <h2>Transaction History</h2>
+            <div id="historyContent"></div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <!-- Video Background -->
+        <video autoplay muted loop id="heroVideo">
+            <source src="assets/hero-video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    
+        <!-- Hero Text and Buttons -->
+        <div class="hero-content">
+            <h1>Welcome to the Ultimate Casino & Esports Arena</h1>
+            <p>Play casino games and watch live football events with real-time updates.</p>
+            <a href="#casino" class="cta-button">Play Casino Games</a>
+            <a href="#football-events" class="cta-button">View Football Events</a>
+        </div>
+    </section>
+
+    <!-- Casino Section -->
+    <section id="casino" class="casino-section">
+        <h2>Featured Casino Games</h2>
+        <div class="game-grid" id="gameGrid"></div>
+    </section>
+
+    <!-- Esports Section -->
+    <section id="esports" class="esports-section">
+        <h2>Upcoming Esports Events</h2>
+        <div class="event-list" id="eventList"></div>
+    </section>
+
+    <!-- Football Events Section -->
+    <section id="football-events" class="football-events-section">
+        <h2>Live Football Scores</h2>
+        <div class="score-list" id="scoreList"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Casino & Esports Arena © 2024</p>
+    </footer>
+
+    <!-- Sign-up Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content dark-modal">
+            <span class="close" id="closeSignup">&times;</span>
+            <h2>Sign Up</h2>
+            <form id="signupForm">
+                <label for="signupUsername">Username</label>
+                <input type="text" id="signupUsername" required>
+                <label for="signupEmail">Email</label>
+                <input type="email" id="signupEmail" required>
+                <label for="signupPassword">Password</label>
+                <input type="password" id="signupPassword" required>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Sign-in Modal -->
+    <div id="signinModal" class="modal">
+        <div class="modal-content dark-modal">
+            <span class="close" id="closeSignin">&times;</span>
+            <h2>Sign In</h2>
+            <form id="signinForm">
+                <label for="signinEmail">Email</label>
+                <input type="email" id="signinEmail" required>
+                <label for="signinPassword">Password</label>
+                <input type="password" id="signinPassword" required>
+                <button type="submit">Sign In</button>
+            </form>
+        </div>
+    </div>
+
+
+
+    <!-- Notification Container -->
+    <div id="notification" class="notification">
+        <p id="notificationMessage"></p>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="main.js"></script>
+</body>
+</html>
