@@ -3,13 +3,13 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #1a1a1a;
+    background-color: #00010f;
     color: white;
     line-height: 1.6;
 }
 
 header {
-    background-color: #333;
+    background-color: #00010f;
     color: #fff;
     padding: 15px;
     display: flex;
@@ -18,23 +18,27 @@ header {
     flex-wrap: wrap;
 }
 
+/* Ensure the entire navbar wraps and stays centered */
 nav {
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Center the entire nav */
     align-items: center;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
     width: 100%;
-    flex-wrap: wrap;
+    padding: 10px;
+    background-color: #00010f; /* Ensure nav has a background */
 }
 
-/* Center the navigation links */
 /* Style for Nav Links with Square Containers */
 .nav-links {
     display: flex;
-    justify-content: center;
+    justify-content: center; /* Ensure links are centered */
+    flex-wrap: wrap; /* Ensure links wrap if there's not enough space */
     gap: 15px;  /* Adds space between the nav items */
     list-style: none;
     padding: 0;
     margin: 0;
+    flex-grow: 1; /* Allow the nav links to grow to fill the space */
 }
 
 .nav-links li {
@@ -44,22 +48,40 @@ nav {
 .nav-links li a {
     display: inline-block;
     padding: 10px 15px;
-    background-color: transparent; /* Background of the link */
+    background-color: transparent;
     color: white;
-    border: 2px solid #ffcc00; /* Adds border color */
-    border-radius: 8px; /* Slightly rounded corners */
+    border: 2px solid #ffcc00;
+    border-radius: 8px;
     text-decoration: none;
     font-size: 18px;
-    transition: all 0.3s ease; /* Smooth transition for hover effects */
+    transition: all 0.3s ease;
 }
 
 /* Hover Effect for Nav Links */
 .nav-links li a:hover {
     background-color: #ffcc00;
     color: #333;
-    transform: translateY(-2px); /* Slight elevation on hover */
-    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
+    transform: translateY(-2px);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
 }
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+    nav {
+        flex-direction: column; /* Stack elements vertically on small screens */
+    }
+
+    .nav-links {
+        justify-content: center; /* Ensure links are centered on smaller screens */
+        gap: 10px;
+    }
+
+    .nav-links li a {
+        padding: 10px 12px;
+        font-size: 16px;
+    }
+}
+
 
 
 /* Profile Picture Container */
@@ -174,7 +196,7 @@ button:hover {
 /* Casino Section */
 .casino-section {
     padding: 40px;
-    background-color: #2c2c54;
+    background-color: #000000;
     color: white;
 }
 
@@ -185,11 +207,12 @@ button:hover {
 }
 
 .game-card {
-    background-color: #444;
+    background-color: #0e0404;
     padding: 20px;
     text-align: center;
     border-radius: 10px;
     transition: transform 0.3s ease;
+    border: 1px solid #ffcc00;
 }
 
 .game-card img {
@@ -206,7 +229,7 @@ button:hover {
 /* Esports Section */
 .esports-section {
     padding: 40px;
-    background-color: #1c1c1c;
+    background-color: #171717;
 }
 
 .event-list {
@@ -215,7 +238,7 @@ button:hover {
 }
 
 .event-card {
-    background-color: #333;
+    background-color: #00010f;
     padding: 20px;
     margin: 10px 0;
     border-radius: 10px;
@@ -229,7 +252,7 @@ button:hover {
 /* Football Events Section */
 .football-events-section {
     padding: 40px;
-    background-color: #1c1c1c;
+    background-color: #171717;
 }
 
 .score-list {
@@ -238,7 +261,7 @@ button:hover {
 }
 
 .score-card {
-    background-color: #292929;
+    background-color: #00010f;
     padding: 20px;
     margin: 10px 0;
     border-radius: 10px;
@@ -246,7 +269,7 @@ button:hover {
 
 /* Footer */
 footer {
-    background-color: #333;
+    background-color: #000000;
     color: white;
     text-align: center;
     padding: 10px;
@@ -392,10 +415,7 @@ footer {
         text-align: center;
     }
 
-    .nav-links {
-        flex-direction: column;
-        gap: 10px;
-    }
+    
 
     .game-grid {
         grid-template-columns: 1fr; /* Single column for mobile */
