@@ -11,9 +11,15 @@
 
   <style type="text/css">
 
-   body{
-     background: url('img/back.png');
-   }
+    body {
+      background: url('assets/blackjacknew.png') no-repeat center center fixed;
+      background-size: cover; /* Ensures the image covers the whole screen */
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden; /* Prevents scrollbars from appearing */
+  }
+  
 
    .hand{
     height:auto;
@@ -24,6 +30,7 @@
     height:auto;
     overflow: auto;
     margin: 25px 0px;
+    margin-top: 5%;
     background: transparent;
     background: rgba(0,0,0,0.1);
     border-radius: 5px;
@@ -35,12 +42,14 @@
    height: 185px;
    width: 132px;
    float: left;
+   margin-top: 10%;
 
  }
 
 </style>
 </head>
 <body>
+  
   <div class="container-fluid" >
    <div class="row ">
      <div class="col-lg-4 col-lg-offset-4">
